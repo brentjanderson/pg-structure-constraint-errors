@@ -1,0 +1,21 @@
+version: '3'
+services:
+  poc:
+    image: node:8-alpine
+    working_dir: /home/node/app
+    volumes:
+      - ./:/home/node/app
+    links:
+      - pgsql
+    depends_on:
+      - pgsql
+    command: sh -c "./wait-for pgsql:5432 -- npm test"
+  pgsql:
+    image: postgres:10.4
+    volumes:
+      - ./init-user-db.sh:/docker-entrypoint-initdb.d/init-user-db.sh
+      - ./setup.sql:/opt/setup.sql
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=pg_structure_bug
