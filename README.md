@@ -12,7 +12,8 @@
     * Tested with Postgres 10.4
 2. Run the `setup.sql` script in that database
 3. `npm i`
-4. `npm run test`
+4. Update `index.js` with correct connection details
+5. `npm run test`
 
 ## Context
 
